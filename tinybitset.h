@@ -7,6 +7,10 @@ as each bit in a 64 bit integer represents a number in the set. n -> 2^(n-1)
 
 This allows for insertion, removal, and set operations to be done in O(1) time.
 
+Q: one question you might ask is, why didn't you just use std::bitset?
+A: contrary to the name, bitset didn't support any set operations, and I wanted to implement them myself,
+   as well as have a more intuitive interface for the user. I thought maybe I could make it lighter weight.
+   most of the functions are one-liners. I also wanted to learn more about templates and conditional types.
 
 */
 
@@ -31,13 +35,15 @@ class TinyBitSet {
 		void insert(int i);
 		void remove(int i);
 		bool contains(int i);
-		TinyBitSet<MaxElems> unionbitset(TinyBitSet<MaxElems> const &obj);
+		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &obj);
+		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
 		void fillall();
 		void removeall();
 		std::vector<int> getIntegerElements();
 		std::string getBitStringElements();
 		int getMaxElements(); 
 		int getSetSize();
+		bool isempty();
 
 
 	private:
@@ -57,9 +63,20 @@ TinyBitSet<MaxElems>::TinyBitSet() {
 
 
 template <int MaxElems>
-TinyBitSet<MaxElems> TinyBitSet<MaxElems>::unionbitset(TinyBitSet<MaxElems> const &obj) {
-	this->tinybitrep |= obj.tinybitrep;
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::unionb(TinyBitSet<MaxElems> const &obj) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = this->tinybitrep | obj.tinybitrep;
+	return t;
 }
+
+template <int MaxElems>
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::intersectionb(TinyBitSet<MaxElems> const &obj) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = this->tinybitrep & obj.tinybitrep;
+	return t;
+}
+
+
 
 
 template <int MaxElems>
@@ -127,3 +144,11 @@ template <int MaxElems>
 int TinyBitSet<MaxElems>::getSetSize() {
 	return getIntegerElements().size();  
 }
+
+template <int MaxElems>
+bool TinyBitSet<MaxElems>::isempty() {
+	return this->tinybitrep == 0;  
+}
+
+
+
