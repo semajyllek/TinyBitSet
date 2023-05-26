@@ -19,6 +19,8 @@ A: contrary to the name, bitset didn't support any set operations, and I wanted 
 #include <vector>
 #include <string>
 #include <bitset>
+#include <bits/stdc++.h>
+
 
 template <int MaxElems>
 	using TinyBitRepType = typename std::conditional<MaxElems < 9, uint_fast8_t, 
@@ -142,7 +144,7 @@ int TinyBitSet<MaxElems>::getMaxElements() {
 
 template <int MaxElems>
 int TinyBitSet<MaxElems>::getSetSize() {
-	return getIntegerElements().size();  
+	return __builtin_popcount(this->tinybitrep);  
 }
 
 template <int MaxElems>
