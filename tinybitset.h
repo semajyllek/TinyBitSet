@@ -41,6 +41,7 @@ class TinyBitSet {
 		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
 		void fillall();
 		void removeall();
+		void invertSet();
 		std::vector<int> getIntegerElements();
 		std::string getBitStringElements();
 		std::bitset<MaxElems> getBitSet();
@@ -120,6 +121,17 @@ void TinyBitSet<MaxElems>::removeall() {
 	this->tinybitrep = 0;
 }
 
+
+
+template <int MaxElems>
+void TinyBitSet<MaxElems>::invertSet() {
+	// mask all the bits > maxElems to 0
+	this->tinybitrep = ~this->tinybitrep;
+	this->tinybitrep &= (1 << this->maxElems) - 1;
+}
+
+
+
 template <int MaxElems>
 std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
 	std::vector<int> elems;
@@ -134,12 +146,12 @@ std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
 
 template <int MaxElems>
 std::string TinyBitSet<MaxElems>::getBitStringElements() {
-	return std::bitset<this->maxElems>(this->tinybitrep).to_string();  
+	return std::bitset<MaxElems>(this->tinybitrep).to_string();  
 }
 
 template <int MaxElems>
 std::bitset<MaxElems> TinyBitSet<MaxElems>::getBitSet() {
-	return std::bitset<this->maxElems>(this->tinybitrep);  
+	return std::bitset<MaxElems>(this->tinybitrep);  
 }
 
 template <int MaxElems>
@@ -159,6 +171,8 @@ template <int MaxElems>
 int TinyBitSet<MaxElems>::getSetSize() {
 	return __builtin_popcount(this->tinybitrep);  
 }
+
+
 
 template <int MaxElems>
 bool TinyBitSet<MaxElems>::isempty() {

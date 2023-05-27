@@ -74,6 +74,23 @@ void testRemoveOne() {
 }
 
 
+void testInvertSet() {
+	TinyBitSet<11> t;
+	t.insert(5);
+	t.insert(7);
+	t.invertSet();
+	try {
+		assert(t.getSetSize() == 9);
+	    assert(t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 6, 8, 9, 10, 11}));
+		std::cout << "passed test: testInvertSet, insert(5), insert(7), invertSet()" << std::endl;
+		return;
+	} catch (std::invalid_argument const &err) {
+		std::cout << "failed test: testInvertSet, size:" << t.getSetSize() << err.what() << std::endl;
+		return;
+	}
+}
+
+
 void testFillAll() {
 	TinyBitSet<9> t;
 	t.fillall();
@@ -166,6 +183,7 @@ int main() {
 	testInsertOne();
 	testInsertTwo();
 	testRemoveOne();
+	testInvertSet();
 	testUnion();
 	testIntersection();
 	testFillAll();
