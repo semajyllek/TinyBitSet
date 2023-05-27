@@ -42,6 +42,7 @@ class TinyBitSet {
 		void fillall();
 		void removeall();
 		void invertSet();
+		int pop(bool reverse=false);
 		std::vector<int> getIntegerElements();
 		std::string getBitStringElements();
 		std::bitset<MaxElems> getBitSet();
@@ -103,7 +104,7 @@ void TinyBitSet<MaxElems>::remove(int i) {
 
 template <int MaxElems>
 bool TinyBitSet<MaxElems>::contains(int i) {
-	if ((i > this->n) || (i < 1)) {
+	if ((i > this->maxElems) || (i < 1)) {
 		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed.");
 	}
 	return (this->tinybitrep & (1 << (i-1))) != 0;
@@ -128,6 +129,29 @@ void TinyBitSet<MaxElems>::invertSet() {
 	// mask all the bits > maxElems to 0
 	this->tinybitrep = ~this->tinybitrep;
 	this->tinybitrep &= (1 << this->maxElems) - 1;
+}
+
+
+
+
+template <int MaxElems>
+int TinyBitSet<MaxElems>::pop(bool reverse) {
+	
+	int start, finish;
+	if (reverse) {
+		start = this->maxElems - 1;
+		finish = -1;
+	} else {
+		start = 0;
+		finish = this->maxElems;
+	} 
+
+	for (int i = start; i != finish; i++) {
+		if (this->tinybitrep & (1 << i)) {
+			return i+1;
+		}
+	}
+	return 0;  
 }
 
 
@@ -158,6 +182,8 @@ template <int MaxElems>
 TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitRep() {
 	return this->tinybitrep;  
 }
+
+
 
 
 

@@ -4,6 +4,10 @@
 #include <iostream>
 #include <vector>
 
+
+
+
+
 void testValidSize() {
 	TinyBitSet<8> t;
 	try {
@@ -52,6 +56,19 @@ void testInsertTwo() {
 		return;
 	} catch (std::invalid_argument const &err) {
 		std::cout << "failed test: testInsertTwo, size:" << t.getSetSize() << err.what() << std::endl;
+		return;
+	}
+}
+
+void testContains() {
+	TinyBitSet<32> t;
+	t.insert(5);
+	try {
+		assert(t.contains(5));
+		std::cout << "passed test: testContains, insert(5), t.contains(5)" << std::endl;
+		return;
+	} catch (std::invalid_argument const &err) {
+		std::cout << "failed test: testContains, size:" << t.getSetSize() << err.what() << std::endl;
 		return;
 	}
 }
@@ -172,12 +189,46 @@ void testIntersection() {
 }
 
 
+void testPopFirst() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+
+	try {
+	    assert(t.pop() == 5);
+		std::cout << "passed test: testPopFirst, insert(5), insert(7), pop()" << std::endl;
+		return;
+	} catch (std::invalid_argument const &err) {
+		std::cout << "failed test: testPopFirst, " << t.getSetSize() << err.what() << std::endl;
+		return;
+	}
+
+}
+
+
+void testPopLast() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	t.insert(17);
+
+	try {
+	    assert(t.pop(true) == 17);
+		std::cout << "passed test: testPopLast, insert(5), insert(7), t.insert(17); pop(reverse=true)" << std::endl;
+		return;
+	} catch (std::invalid_argument const &err) {
+		std::cout << "failed test: testPopLast, " << t.getSetSize() << err.what() << std::endl;
+		return;
+	}
+
+}
 
 
 
 
 
 int main() {
+	testContains();
 	testValidSize();
 	testInvalidSize();
 	testInsertOne();
@@ -188,6 +239,8 @@ int main() {
 	testIntersection();
 	testFillAll();
 	testRemoveAll();
+	testPopFirst();
+	testPopLast();
 	return 0;
 }
 
