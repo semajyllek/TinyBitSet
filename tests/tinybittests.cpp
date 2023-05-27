@@ -36,7 +36,7 @@ void testInsertOne() {
 		std::cout << "passed test: testInsertOne, insert(5)" << std::endl;
 		return;
 	} catch (std::invalid_argument const &err) {
-		std::cout << t.getSetSize() << err.what() << std::endl;
+		std::cout << "failed test: testInsertOne, " << t.getSetSize() << err.what() << std::endl;
 		return;
 	}
 }
@@ -51,7 +51,7 @@ void testInsertTwo() {
 		std::cout << "passed test: testInsertTwo, insert(5), insert(22)" << std::endl;
 		return;
 	} catch (std::invalid_argument const &err) {
-		std::cout << t.getSetSize() << err.what() << std::endl;
+		std::cout << "failed test: testInsertTwo, " << t.getSetSize() << err.what() << std::endl;
 		return;
 	}
 }
@@ -68,7 +68,7 @@ void testRemoveOne() {
 		std::cout << "passed test: testRemoveOne, insert(5), insert(22), remove(5)" << std::endl;
 		return;
 	} catch (std::invalid_argument const &err) {
-		std::cout << t.getSetSize() << err.what() << std::endl;
+		std::cout << "failed test: testRemoveOne, " << t.getSetSize() << err.what() << std::endl;
 		return;
 	}
 }
@@ -91,7 +91,7 @@ void testUnion() {
 		std::cout << "passed test: testUnion, union({5, 7}, {3, 5})" << std::endl;
 		return;
 	} catch (std::invalid_argument const &err) {
-		std::cout << t3.getSetSize() << err.what() << std::endl;
+		std::cout << "failed test: testUnion, " << t3.getSetSize() << err.what() << std::endl;
 		return;
 	}
 
@@ -114,7 +114,7 @@ void testIntersection() {
 		std::cout << "passed test: testIntersection, intersection({5, 7}, {3, 5})" << std::endl;
 		return;
 	} catch (std::invalid_argument const &err) {
-		std::cout << t3.getSetSize() << err.what() << std::endl;
+		std::cout << "failed test: testIntersection, " << t3.getSetSize() << err.what() << std::endl;
 		return;
 	}
 
