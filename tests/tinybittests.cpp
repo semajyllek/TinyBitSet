@@ -10,14 +10,12 @@
 
 void testValidSize() {
 	TinyBitSet<8> t;
-	try {
-		assert(t.getMaxElements() == 8);
-		assert(t.getSetSize() == 0);
+	if ((t.getMaxElements() == 8) && (t.getSetSize() == 0)) {
 		std::cout << "passed test: testValidSize, (empty 8 bit set)" << std::endl;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testValidSize, " << err.what() << std::endl;
+	} else {
+		std::cout << "failed test: testValidSize, " << std::endl;
 	}
-	
+	return;
 }
 
 void testInvalidSize() {
@@ -34,43 +32,35 @@ void testInvalidSize() {
 void testInsertOne() {
 	TinyBitSet<32> t;
 	t.insert(5);
-	try {
-		assert(t.getSetSize() == 1);
-	    assert(t.getIntegerElements()[0] == 5);
+	if ((t.getSetSize() == 1) && (t.getIntegerElements()[0] == 5)) {
 		std::cout << "passed test: testInsertOne, insert(5)" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testInsertOne, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testInsertOne, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
 
 void testInsertTwo() {
 	TinyBitSet<32> t;
 	t.insert(5);
 	t.insert(22);
-	try {
-		assert(t.getSetSize() == 2);
-	    assert(t.getIntegerElements() == std::vector<int>({5, 22}));
+	if ((t.getSetSize() == 2) && (t.getIntegerElements() == std::vector<int>({5, 22}))){
 		std::cout << "passed test: testInsertTwo, insert(5), insert(22)" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testInsertTwo, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testInsertTwo, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
 
 void testContains() {
 	TinyBitSet<32> t;
 	t.insert(5);
-	try {
-		assert(t.contains(5));
+	if (t.contains(5)) {
 		std::cout << "passed test: testContains, insert(5), t.contains(5)" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testContains, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testContains, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
 
 
@@ -79,15 +69,12 @@ void testRemoveOne() {
 	t.insert(5);
 	t.insert(22);
 	t.remove(5);
-	try {
-		assert(t.getSetSize() == 1);
-	    assert(t.getIntegerElements() == std::vector<int>({22}));
+	if ((t.getSetSize() == 1) && (t.getIntegerElements() == std::vector<int>({22}))) {
 		std::cout << "passed test: testRemoveOne, insert(5), insert(22), remove(5)" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testRemoveOne, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testRemoveOne, size:" << t.getSetSize()  << std::endl;
 	}
+	return;
 }
 
 
@@ -96,31 +83,27 @@ void testInvertSet() {
 	t.insert(5);
 	t.insert(7);
 	t.invertSet();
-	try {
-		assert(t.getSetSize() == 9);
-	    assert(t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 6, 8, 9, 10, 11}));
+	if ((t.getSetSize() == 9) && (t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 6, 8, 9, 10, 11}))) {
 		std::cout << "passed test: testInvertSet, insert(5), insert(7), invertSet()" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testInvertSet, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testInvertSet, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
 
 
 void testFillAll() {
 	TinyBitSet<9> t;
 	t.fillall();
-	try {
-		assert(t.getSetSize() == 9);
-	    assert(t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 5, 6, 7, 8, 9}));
+	if ((t.getSetSize() == 9) && (t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 5, 6, 7, 8, 9}))) {
 		std::cout << "passed test: testFillAll" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testFillAll, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testFillAll, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
+
+
 
 void testRemoveAll() {
 	TinyBitSet<37> t;
@@ -129,15 +112,12 @@ void testRemoveAll() {
 	t.insert(35);
 	t.removeall();
 
-	try {
-		assert(t.getSetSize() == 0);
-	    assert(t.getIntegerElements() == std::vector<int>({}));
+	if ((t.getSetSize() == 0) && (t.getIntegerElements() == std::vector<int>({}))) {
 		std::cout << "passed test: testRemoveAll" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testRemoveAll, size:" << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testRemoveAll, size:" << t.getSetSize() << std::endl;
 	}
+	return;
 }
 
 
@@ -153,16 +133,12 @@ void testUnion() {
 	t2.insert(5);
 
 	TinyBitSet<9> t3 = t1.unionb(t2);
-	try {
-		assert(t3.getSetSize() == 3);
-	    assert(t3.getIntegerElements() == std::vector<int>({3, 5, 7}));
+	if ((t3.getSetSize() == 3) && (t3.getIntegerElements() == std::vector<int>({3, 5, 7}))) {
 		std::cout << "passed test: testUnion, union({5, 7}, {3, 5})" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testUnion, " << t3.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testUnion, " << t3.getSetSize() << std::endl;
 	}
-
+	return;
 }
 
 
@@ -176,15 +152,12 @@ void testIntersection() {
 	t2.insert(5);
 
 	TinyBitSet<9> t3 = t1.intersectionb(t2);
-	try {
-		assert(t3.getSetSize() == 1);
-	    assert(t3.getIntegerElements() == std::vector<int>({5}));
+	if ((t3.getSetSize() == 1) && (t3.getIntegerElements() == std::vector<int>({5}))){
 		std::cout << "passed test: testIntersection, intersection({5, 7}, {3, 5})" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testIntersection, " << t3.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testIntersection, " << t3.getSetSize() << std::endl;
 	}
+	return;
 
 }
 
@@ -193,15 +166,14 @@ void testPopFirst() {
 	TinyBitSet<17> t;
 	t.insert(5);
 	t.insert(7);
+	int res = t.pop();
 
-	try {
-	    assert(t.pop() == 5);
+	if((res == 5) && (t.getSetSize() == 1)) {
 		std::cout << "passed test: testPopFirst, insert(5), insert(7), pop()" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testPopFirst, " << t.getSetSize() << err.what() << std::endl;
-		return;
+	} else {
+		std::cout << "failed test: testPopFirst, " << res << t.getSetSize() <<  std::endl;
 	}
+	return;
 
 }
 
@@ -211,16 +183,15 @@ void testPopLast() {
 	t.insert(5);
 	t.insert(7);
 	t.insert(17);
+	bool reverse = true;
+	int res = t.pop(reverse);
 
-	try {
-	    assert(t.pop(true) == 17);
-		std::cout << "passed test: testPopLast, insert(5), insert(7), t.insert(17); pop(reverse=true)" << std::endl;
-		return;
-	} catch (std::invalid_argument const &err) {
-		std::cout << "failed test: testPopLast, " << t.getSetSize() << err.what() << std::endl;
-		return;
+	if((res == 17) && (t.getSetSize() == 2)) {
+		std::cout << "passed test: testPopLast, insert(5), insert(7), insert(17), pop()" << std::endl;
+	} else {
+		std::cout << "failed test: testPopLast, " << res << t.getSetSize() << std::endl;
 	}
-
+	return;
 }
 
 
