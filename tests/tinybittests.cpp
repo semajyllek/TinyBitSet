@@ -1,5 +1,5 @@
 
-#include "../tinybitset.h"
+#include "../tinybitset.h"  // had to be installed in /usr/local/include for macOS
 #include <cassert>
 #include <iostream>
 #include <vector>
