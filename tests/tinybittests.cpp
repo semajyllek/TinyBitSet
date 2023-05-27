@@ -74,7 +74,6 @@ void testRemoveOne() {
 }
 
 
-// test union
 void testUnion() {
 	TinyBitSet<9> t1;
 	t1.insert(5);
