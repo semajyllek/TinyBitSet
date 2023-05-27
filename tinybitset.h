@@ -44,6 +44,7 @@ class TinyBitSet {
 		std::vector<int> getIntegerElements();
 		std::string getBitStringElements();
 		std::bitset<MaxElems> getBitSet();
+		TinyBitRepType<MaxElems> getBitRep();
 		int getMaxElements(); 
 		int getSetSize();
 		bool isempty();
@@ -139,6 +140,11 @@ std::string TinyBitSet<MaxElems>::getBitStringElements() {
 template <int MaxElems>
 std::bitset<MaxElems> TinyBitSet<MaxElems>::getBitSet() {
 	return std::bitset<this->maxElems>(this->tinybitrep);  
+}
+
+template <int MaxElems>
+TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitRep() {
+	return this->tinybitrep;  
 }
 
 
