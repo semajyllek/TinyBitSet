@@ -43,6 +43,7 @@ class TinyBitSet {
 		void removeall();
 		std::vector<int> getIntegerElements();
 		std::string getBitStringElements();
+		std::bitset<MaxElems> getBitSet();
 		int getMaxElements(); 
 		int getSetSize();
 		bool isempty();
@@ -110,7 +111,7 @@ bool TinyBitSet<MaxElems>::contains(int i) {
 
 template <int MaxElems>
 void TinyBitSet<MaxElems>::fillall() {
-	this->tinybitrep = ~0;
+	this->tinybitrep = (1 << this->maxElems) - 1;
 }
 
 template <int MaxElems>
@@ -132,8 +133,14 @@ std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
 
 template <int MaxElems>
 std::string TinyBitSet<MaxElems>::getBitStringElements() {
-	return std::bitset<8>(this->tinybitrep).to_string();  
+	return std::bitset<this->maxElems>(this->tinybitrep).to_string();  
 }
+
+template <int MaxElems>
+std::bitset<MaxElems> TinyBitSet<MaxElems>::getBitSet() {
+	return std::bitset<this->maxElems>(this->tinybitrep);  
+}
+
 
 
 template <int MaxElems>
