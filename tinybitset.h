@@ -60,7 +60,7 @@ class TinyBitSet {
 		
 
 		// set operations to modify this TinyBitSet
-		void fillall();
+		void fill();
 		void removeall();
 		void invertSet();
 		int pop(bool reverse=false);
@@ -202,7 +202,7 @@ bool TinyBitSet<MaxElems>::contains(int i) {
 
 
 template <int MaxElems>
-void TinyBitSet<MaxElems>::fillall() {
+void TinyBitSet<MaxElems>::fill() {
 	this->tinybitrep = (1 << this->maxElems) - 1;
 }
 

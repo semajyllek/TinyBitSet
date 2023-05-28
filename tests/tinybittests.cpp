@@ -17,7 +17,7 @@ void testEqual() {
 	if ((t1 == t2)) {
 		std::cout << "passed test: testEqual" << std::endl;
 	} else {
-		std::cout << "failed test: testEqual, size:" << t1.getBitString() <<  t2.getBitString() << std::endl;
+		std::cout << "failed test: testEqual, fill:" << t1.getBitString() <<  t2.getBitString() << std::endl;
 	}
 	return;
 }
@@ -36,7 +36,7 @@ void testNotEqual() {
 	if ((t1 != t2)) {
 		std::cout << "passed test: testNotEqual" << std::endl;
 	} else {
-		std::cout << "failed test: testNotEqual, size:" << t1.getBitString() << t2.getBitString() << std::endl;
+		std::cout << "failed test: testNotEqual, fill:" << t1.getBitString() << t2.getBitString() << std::endl;
 	}
 	return;
 }
@@ -157,13 +157,13 @@ void testInvertSet() {
 }
 
 
-void testFillAll() {
+void testFill() {
 	TinyBitSet<9> t;
-	t.fillall();
+	t.fill();
 	if ((t.getSetSize() == 9) && (t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 5, 6, 7, 8, 9}))) {
-		std::cout << "passed test: testFillAll" << std::endl;
+		std::cout << "passed test: testFill" << std::endl;
 	} else {
-		std::cout << "failed test: testFillAll, size:" << t.getSetSize() << std::endl;
+		std::cout << "failed test: testFill, size:" << t.getSetSize() << std::endl;
 	}
 	return;
 }
@@ -385,7 +385,7 @@ int main() {
 	testInvertSet();
 	testUnion();
 	testIntersection();
-	testFillAll();
+	testFill();
 	testRemoveAll();
 	testPopFirst();
 	testPopLast();
