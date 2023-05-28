@@ -35,21 +35,22 @@ template <int MaxElems>
 template <int MaxElems>
 class TinyBitSet {
 	public:
+		// constructors
 		TinyBitSet();
 		TinyBitSet(TinyBitRepType<MaxElems> const initbitrep);
 
-		// overloaded object operator
+		// overloaded object operators
 		bool operator==(TinyBitSet<MaxElems> const &obj) const;
 		bool operator!=(TinyBitSet<MaxElems> const &obj) const;
 		TinyBitSet<MaxElems>& operator=(TinyBitSet<MaxElems> const &obj); 
 
 
-		// set operations
+		// element-wise set operations
 		void insert(int i);
 		void remove(int i);
 		bool contains(int i);
 
-		// set operations to return new TinyBitSet
+		// set-wise set operations to return new TinyBitSet
 		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> leftDifference(TinyBitSet<MaxElems> const &obj);
@@ -61,7 +62,7 @@ class TinyBitSet {
 		void invertSet();
 		int pop(bool reverse=false);
 
-		// get functions
+		// get methods
 		std::vector<int> getIntegerElements() const;
 		std::string getBitString() const;
 		TinyBitRepType<MaxElems> getBitInt() const;
