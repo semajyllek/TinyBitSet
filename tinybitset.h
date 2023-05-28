@@ -39,17 +39,20 @@ class TinyBitSet {
 		bool contains(int i);
 		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
+		TinyBitSet<MaxElems> leftDifference(TinyBitSet<MaxElems> const &obj);
+		TinyBitSet<MaxElems> rightDifference(TinyBitSet<MaxElems> const &obj);
 		void fillall();
 		void removeall();
 		void invertSet();
 		int pop(bool reverse=false);
 		std::vector<int> getIntegerElements();
-		std::string getBitStringElements();
-		std::bitset<MaxElems> getBitSet();
-		TinyBitRepType<MaxElems> getBitRep();
+		std::string getBitString();
+		TinyBitRepType<MaxElems> getBitInt();
 		int getMaxElements(); 
 		int getSetSize();
 		bool isempty();
+		bool operator==(TinyBitSet<MaxElems> const &obj);
+		bool operator!=(TinyBitSet<MaxElems> const &obj);
 
 
 	private:
@@ -57,6 +60,16 @@ class TinyBitSet {
 		int maxElems;
 };
 
+
+template <int MaxElems> 
+bool TinyBitSet<MaxElems>::operator==(TinyBitSet<MaxElems> const &obj){
+	return this->tinybitrep == obj.tinybitrep;
+}
+
+template <int MaxElems> 
+bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj){
+	return this->tinybitrep != obj.tinybitrep;
+}
 
 template <int MaxElems> 
 TinyBitSet<MaxElems>::TinyBitSet() {
@@ -82,6 +95,19 @@ TinyBitSet<MaxElems> TinyBitSet<MaxElems>::intersectionb(TinyBitSet<MaxElems> co
 	return t;
 }
 
+template <int MaxElems>
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::leftDifference(TinyBitSet<MaxElems> const &obj) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = this->tinybitrep ^ (this->tinybitrep & obj.tinybitrep);
+	return t;
+}
+
+template <int MaxElems>
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::rightDifference(TinyBitSet<MaxElems> const &obj) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = obj.tinybitrep ^ (this->tinybitrep & obj.tinybitrep);
+	return t;
+}
 
 
 
@@ -170,17 +196,13 @@ std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
 
 
 template <int MaxElems>
-std::string TinyBitSet<MaxElems>::getBitStringElements() {
+std::string TinyBitSet<MaxElems>::getBitString() {
 	return std::bitset<MaxElems>(this->tinybitrep).to_string();  
 }
 
-template <int MaxElems>
-std::bitset<MaxElems> TinyBitSet<MaxElems>::getBitSet() {
-	return std::bitset<MaxElems>(this->tinybitrep);  
-}
 
 template <int MaxElems>
-TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitRep() {
+TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitInt() {
 	return this->tinybitrep;  
 }
 
