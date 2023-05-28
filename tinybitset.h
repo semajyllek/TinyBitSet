@@ -21,6 +21,8 @@ A: contrary to the name, bitset didn't support any set operations, and I wanted 
 #include <bitset>
 #include <bits/stdc++.h>
 
+#include <iostream>
+
 
 template <int MaxElems>
 	using TinyBitRepType = typename std::conditional<MaxElems < 9, uint_fast8_t, 
@@ -34,31 +36,109 @@ template <int MaxElems>
 class TinyBitSet {
 	public:
 		TinyBitSet();
+
+		// overloaded object operator
+		bool operator==(TinyBitSet<MaxElems> const &obj) const;
+		bool operator!=(TinyBitSet<MaxElems> const &obj) const;
+		TinyBitSet<MaxElems>& operator=(TinyBitSet<MaxElems> const &obj); 
+
+
+		// set operations
 		void insert(int i);
 		void remove(int i);
 		bool contains(int i);
+
+		// set operations to return new TinyBitSet
 		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> leftDifference(TinyBitSet<MaxElems> const &obj);
 		TinyBitSet<MaxElems> rightDifference(TinyBitSet<MaxElems> const &obj);
+
+		// set operations to modify this TinyBitSet
 		void fillall();
 		void removeall();
 		void invertSet();
 		int pop(bool reverse=false);
+
+		// get functions
 		std::vector<int> getIntegerElements() const;
 		std::string getBitString() const;
 		TinyBitRepType<MaxElems> getBitInt() const;
 		int getMaxElements() const; 
 		int getSetSize() const;
 		bool isempty() const;
-		bool operator==(TinyBitSet<MaxElems> const &obj) const;
-		bool operator!=(TinyBitSet<MaxElems> const &obj) const;
 
+		// set functions
+		void setBitRep(uint_fast8_t const newbitrep);
+		void setBitRep(uint_fast16_t const newbitrep);
+		void setBitRep(uint_fast32_t const newbitrep);
+		void setBitRep(uint_fast64_t const newbitrep);
+		
 
 	private:
 		TinyBitRepType<MaxElems> tinybitrep;
 		int maxElems;
+
 };
+
+template <int MaxElems> 
+TinyBitSet<MaxElems>::TinyBitSet() {
+	if (MaxElems > 64) {
+        throw std::invalid_argument("TinyBitSet can only hold up to the first 64 integers");
+    }	
+	this->maxElems = MaxElems;	
+	this->tinybitrep = 0;
+}
+
+
+template <int MaxElems> 
+void TinyBitSet<MaxElems>::setBitRep(uint_fast8_t const newbitrep) {
+	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
+		throw std::invalid_argument("bit representation sizes do not match");
+	}
+	this->tinybitrep = newbitrep;
+	return;
+}
+
+
+template <int MaxElems> 
+void TinyBitSet<MaxElems>::setBitRep(uint_fast16_t const newbitrep) {
+	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
+		throw std::invalid_argument("bit representation sizes do not match");
+	}
+	this->tinybitrep = newbitrep;
+	return;
+}
+
+template <int MaxElems> 
+void TinyBitSet<MaxElems>::setBitRep(uint_fast32_t const newbitrep) {
+	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
+		throw std::invalid_argument("bit representation sizes do not match");
+	}
+	this->tinybitrep = newbitrep;
+	return;
+}
+
+template <int MaxElems> 
+void TinyBitSet<MaxElems>::setBitRep(uint_fast64_t const newbitrep) {
+	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
+		throw std::invalid_argument("bit representation sizes do not match");
+	}
+	this->tinybitrep = newbitrep;
+	return;
+}
+
+
+
+template <int MaxElems> 
+TinyBitSet<MaxElems>& TinyBitSet<MaxElems>::operator=(TinyBitSet<MaxElems> const &obj) {
+	if (obj.getMaxElements() != this->maxElems) {
+		throw std::invalid_argument("left TinyBitSet maxElems != right TinyBitSet maxElems");
+	}
+	this->maxElems =  obj.getMaxElements();
+	this->tinybitrep = obj.tinybitrep;
+	return *this;
+}
 
 
 template <int MaxElems> 
@@ -71,14 +151,9 @@ bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj) const {
 	return this->tinybitrep != obj.tinybitrep;
 }
 
-template <int MaxElems> 
-TinyBitSet<MaxElems>::TinyBitSet() {
-	if (MaxElems > 64) {
-        throw std::invalid_argument("TinyBitSet can only hold up to the first 64 integers");
-    }	
-	this->maxElems = MaxElems;	
-	this->tinybitrep = 0;
-}
+
+
+
 
 
 template <int MaxElems>
@@ -182,6 +257,11 @@ int TinyBitSet<MaxElems>::pop(bool reverse) {
 }
 
 
+
+
+/*
+	getters
+*/
 
 template <int MaxElems>
 std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() const {

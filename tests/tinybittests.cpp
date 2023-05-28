@@ -6,6 +6,10 @@
 
 
 
+
+
+
+
 void testEqual() {
 	TinyBitSet<11> t1;
 	t1.insert(5);
@@ -17,7 +21,7 @@ void testEqual() {
 	
 
 	if ((t1 == t2)) {
-		std::cout << "passed test: testEqual, t1.insert(5), t1.insert(7), t2.insert(7), t2.insert(5), t1==t2" << std::endl;
+		std::cout << "passed test: testEqual" << std::endl;
 	} else {
 		std::cout << "failed test: testEqual, size:" << t1.getBitString() <<  t2.getBitString() << std::endl;
 	}
@@ -36,7 +40,7 @@ void testNotEqual() {
 	
 
 	if ((t1 != t2)) {
-		std::cout << "passed test: testNotEqual, t1.insert(5), t1.insert(7), t2.insert(7), t2.insert(4), t1!=t2" << std::endl;
+		std::cout << "passed test: testNotEqual" << std::endl;
 	} else {
 		std::cout << "failed test: testNotEqual, size:" << t1.getBitString() << t2.getBitString() << std::endl;
 	}
@@ -44,8 +48,55 @@ void testNotEqual() {
 }
 
 
+void testAssignment() {
+	TinyBitSet<11> t1;
+	t1.insert(5);
+	t1.insert(7);
+
+	TinyBitSet<11> t2;
+	t2 = t1;
+	if ((t1 == t2)) {
+		std::cout << "passed test: testAssignment" << std::endl;
+	} else {
+		std::cout << "failed test: testAssignment, bit strings:" << t1.getBitString() << t2.getBitString() << std::endl;
+	}
+}
 
 
+void testSetBitRep() {
+	TinyBitSet<9> t1;
+	t1.insert(1);
+	t1.insert(8);
+
+	TinyBitSet<9> t2;
+	t2.insert(5);
+	t2.insert(6);
+
+	t1.setBitRep(t2.getBitInt());
+
+	if ((t1 == t2)) {
+		std::cout << "passed test: testSetBitRep" << std::endl;
+	} else {
+		std::cout << "failed test: testSetBitRep, bit strings:" << t1.getBitString() << "      " << t2.getBitString() << std::endl;
+	}
+}
+
+void testSetBitRepSizeError() {
+	TinyBitSet<7> t1;
+	t1.insert(1);
+	t1.insert(6);
+
+	TinyBitSet<32> t2;
+	t2.insert(5);
+
+	try {
+		t1.setBitRep(t2.getBitInt());
+	} catch (std::invalid_argument const &err) {
+		std::cout << "passed test: testSetBitRepSizeError, " << err.what() << std::endl;
+		return;
+	}
+	std::cout << "failed test: testSetBitRepSizeError, no exception thrown, " << t1.getBitString() << std::endl;
+}
 
 
 void testValidSize() {
@@ -58,14 +109,14 @@ void testValidSize() {
 	return;
 }
 
-void testInvalidSize() {
+void testInvalidSizeError() {
 	try {
 		TinyBitSet<65> t;
 	} catch (std::invalid_argument const &err) {
-		std::cout << "passed test: testInvalidSize, " << err.what() << std::endl;
+		std::cout << "passed test: testInvalidSizeError, " << err.what() << std::endl;
 		return;
 	}
-	std::cout << "failed test: testInvalidSize, no exception thrown" << std::endl;
+	std::cout << "failed test: testInvalidSizeError, no exception thrown" << std::endl;
 }
 
 
@@ -85,7 +136,7 @@ void testInsertTwo() {
 	t.insert(5);
 	t.insert(22);
 	if ((t.getSetSize() == 2) && (t.getIntegerElements() == std::vector<int>({5, 22}))){
-		std::cout << "passed test: testInsertTwo, insert(5), insert(22)" << std::endl;
+		std::cout << "passed test: testInsertTwo" << std::endl;
 	} else {
 		std::cout << "failed test: testInsertTwo, size:" << t.getSetSize() << std::endl;
 	}
@@ -96,7 +147,7 @@ void testContains() {
 	TinyBitSet<32> t;
 	t.insert(5);
 	if (t.contains(5)) {
-		std::cout << "passed test: testContains, insert(5), t.contains(5)" << std::endl;
+		std::cout << "passed test: testContains" << std::endl;
 	} else {
 		std::cout << "failed test: testContains, size:" << t.getSetSize() << std::endl;
 	}
@@ -110,7 +161,7 @@ void testRemoveOne() {
 	t.insert(22);
 	t.remove(5);
 	if ((t.getSetSize() == 1) && (t.getIntegerElements() == std::vector<int>({22}))) {
-		std::cout << "passed test: testRemoveOne, insert(5), insert(22), remove(5)" << std::endl;
+		std::cout << "passed test: testRemoveOne" << std::endl;
 	} else {
 		std::cout << "failed test: testRemoveOne, size:" << t.getSetSize()  << std::endl;
 	}
@@ -124,7 +175,7 @@ void testInvertSet() {
 	t.insert(7);
 	t.invertSet();
 	if ((t.getSetSize() == 9) && (t.getIntegerElements() == std::vector<int>({1, 2, 3, 4, 6, 8, 9, 10, 11}))) {
-		std::cout << "passed test: testInvertSet, insert(5), insert(7), invertSet()" << std::endl;
+		std::cout << "passed test: testInvertSet" << std::endl;
 	} else {
 		std::cout << "failed test: testInvertSet, size:" << t.getSetSize() << std::endl;
 	}
@@ -300,9 +351,12 @@ void testPopLast() {
 int main() {
 	testEqual();
 	testNotEqual();
+	testAssignment();
+	testSetBitRep();
+	testSetBitRepSizeError();
 	testContains();
 	testValidSize();
-	testInvalidSize();
+	testInvalidSizeError();
 	testInsertOne();
 	testInsertTwo();
 	testRemoveOne();
