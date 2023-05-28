@@ -6,9 +6,6 @@
 
 
 
-
-
-
 void testEqual() {
 	TinyBitSet<11> t1;
 	t1.insert(5);
