@@ -45,14 +45,14 @@ class TinyBitSet {
 		void removeall();
 		void invertSet();
 		int pop(bool reverse=false);
-		std::vector<int> getIntegerElements();
-		std::string getBitString();
-		TinyBitRepType<MaxElems> getBitInt();
-		int getMaxElements(); 
-		int getSetSize();
-		bool isempty();
-		bool operator==(TinyBitSet<MaxElems> const &obj);
-		bool operator!=(TinyBitSet<MaxElems> const &obj);
+		std::vector<int> getIntegerElements() const;
+		std::string getBitString() const;
+		TinyBitRepType<MaxElems> getBitInt() const;
+		int getMaxElements() const; 
+		int getSetSize() const;
+		bool isempty() const;
+		bool operator==(TinyBitSet<MaxElems> const &obj) const;
+		bool operator!=(TinyBitSet<MaxElems> const &obj) const;
 
 
 	private:
@@ -62,12 +62,12 @@ class TinyBitSet {
 
 
 template <int MaxElems> 
-bool TinyBitSet<MaxElems>::operator==(TinyBitSet<MaxElems> const &obj){
+bool TinyBitSet<MaxElems>::operator==(TinyBitSet<MaxElems> const &obj) const {
 	return this->tinybitrep == obj.tinybitrep;
 }
 
 template <int MaxElems> 
-bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj){
+bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj) const {
 	return this->tinybitrep != obj.tinybitrep;
 }
 
@@ -184,7 +184,7 @@ int TinyBitSet<MaxElems>::pop(bool reverse) {
 
 
 template <int MaxElems>
-std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
+std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() const {
 	std::vector<int> elems;
 	for (int i = 0; i < this->maxElems; i++) {
 		if (this->tinybitrep & (1 << i)) {
@@ -196,13 +196,13 @@ std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() {
 
 
 template <int MaxElems>
-std::string TinyBitSet<MaxElems>::getBitString() {
+std::string TinyBitSet<MaxElems>::getBitString() const {
 	return std::bitset<MaxElems>(this->tinybitrep).to_string();  
 }
 
 
 template <int MaxElems>
-TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitInt() {
+TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitInt() const {
 	return this->tinybitrep;  
 }
 
@@ -211,20 +211,20 @@ TinyBitRepType<MaxElems> TinyBitSet<MaxElems>::getBitInt() {
 
 
 template <int MaxElems>
-int TinyBitSet<MaxElems>::getMaxElements() {
+int TinyBitSet<MaxElems>::getMaxElements() const {
 	return this->maxElems;  
 }
 
 
 template <int MaxElems>
-int TinyBitSet<MaxElems>::getSetSize() {
+int TinyBitSet<MaxElems>::getSetSize() const {
 	return __builtin_popcount(this->tinybitrep);  
 }
 
 
 
 template <int MaxElems>
-bool TinyBitSet<MaxElems>::isempty() {
+bool TinyBitSet<MaxElems>::isempty() const {
 	return this->tinybitrep == 0;  
 }
 
