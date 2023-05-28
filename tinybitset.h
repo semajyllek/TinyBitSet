@@ -36,6 +36,7 @@ template <int MaxElems>
 class TinyBitSet {
 	public:
 		TinyBitSet();
+		TinyBitSet(TinyBitRepType<MaxElems> const initbitrep);
 
 		// overloaded object operator
 		bool operator==(TinyBitSet<MaxElems> const &obj) const;
@@ -67,19 +68,15 @@ class TinyBitSet {
 		int getMaxElements() const; 
 		int getSetSize() const;
 		bool isempty() const;
-
-		// set functions
-		void setBitRep(uint_fast8_t const newbitrep);
-		void setBitRep(uint_fast16_t const newbitrep);
-		void setBitRep(uint_fast32_t const newbitrep);
-		void setBitRep(uint_fast64_t const newbitrep);
-		
+	
 
 	private:
 		TinyBitRepType<MaxElems> tinybitrep;
 		int maxElems;
 
 };
+
+
 
 template <int MaxElems> 
 TinyBitSet<MaxElems>::TinyBitSet() {
@@ -92,41 +89,14 @@ TinyBitSet<MaxElems>::TinyBitSet() {
 
 
 template <int MaxElems> 
-void TinyBitSet<MaxElems>::setBitRep(uint_fast8_t const newbitrep) {
-	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
-		throw std::invalid_argument("bit representation sizes do not match");
-	}
-	this->tinybitrep = newbitrep;
-	return;
+TinyBitSet<MaxElems>::TinyBitSet(TinyBitRepType<MaxElems> const initbitrep) {
+	if (MaxElems > 64) {
+        throw std::invalid_argument("TinyBitSet can only hold up to the first 64 integers");
+    }	
+	this->maxElems = MaxElems;	
+	this->tinybitrep = initbitrep;
 }
 
-
-template <int MaxElems> 
-void TinyBitSet<MaxElems>::setBitRep(uint_fast16_t const newbitrep) {
-	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
-		throw std::invalid_argument("bit representation sizes do not match");
-	}
-	this->tinybitrep = newbitrep;
-	return;
-}
-
-template <int MaxElems> 
-void TinyBitSet<MaxElems>::setBitRep(uint_fast32_t const newbitrep) {
-	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
-		throw std::invalid_argument("bit representation sizes do not match");
-	}
-	this->tinybitrep = newbitrep;
-	return;
-}
-
-template <int MaxElems> 
-void TinyBitSet<MaxElems>::setBitRep(uint_fast64_t const newbitrep) {
-	if (sizeof(this->tinybitrep) != sizeof(newbitrep)) {
-		throw std::invalid_argument("bit representation sizes do not match");
-	}
-	this->tinybitrep = newbitrep;
-	return;
-}
 
 
 

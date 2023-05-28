@@ -48,7 +48,7 @@ void testNotEqual() {
 }
 
 
-void testAssignment() {
+void testAssignmentObject() {
 	TinyBitSet<11> t1;
 	t1.insert(5);
 	t1.insert(7);
@@ -56,47 +56,27 @@ void testAssignment() {
 	TinyBitSet<11> t2;
 	t2 = t1;
 	if ((t1 == t2)) {
-		std::cout << "passed test: testAssignment" << std::endl;
+		std::cout << "passed test: testAssignmentObject" << std::endl;
 	} else {
-		std::cout << "failed test: testAssignment, bit strings:" << t1.getBitString() << t2.getBitString() << std::endl;
+		std::cout << "failed test: testAssignmentObject, bit strings:" << t1.getBitString() << t2.getBitString() << std::endl;
 	}
 }
 
 
-void testSetBitRep() {
+void testAssignmentBitRep() {
 	TinyBitSet<9> t1;
 	t1.insert(1);
 	t1.insert(8);
 
-	TinyBitSet<9> t2;
-	t2.insert(5);
-	t2.insert(6);
-
-	t1.setBitRep(t2.getBitInt());
-
+	TinyBitSet<9> t2(t1.getBitInt());
+	
 	if ((t1 == t2)) {
-		std::cout << "passed test: testSetBitRep" << std::endl;
+		std::cout << "passed test: testAssignmentBitRep" << std::endl;
 	} else {
-		std::cout << "failed test: testSetBitRep, bit strings:" << t1.getBitString() << "      " << t2.getBitString() << std::endl;
+		std::cout << "failed test: testAssignmentBitRep, bit strings:" << t1.getBitString() << "      " << t2.getBitString() << std::endl;
 	}
 }
 
-void testSetBitRepSizeError() {
-	TinyBitSet<7> t1;
-	t1.insert(1);
-	t1.insert(6);
-
-	TinyBitSet<32> t2;
-	t2.insert(5);
-
-	try {
-		t1.setBitRep(t2.getBitInt());
-	} catch (std::invalid_argument const &err) {
-		std::cout << "passed test: testSetBitRepSizeError, " << err.what() << std::endl;
-		return;
-	}
-	std::cout << "failed test: testSetBitRepSizeError, no exception thrown, " << t1.getBitString() << std::endl;
-}
 
 
 void testValidSize() {
@@ -351,9 +331,8 @@ void testPopLast() {
 int main() {
 	testEqual();
 	testNotEqual();
-	testAssignment();
-	testSetBitRep();
-	testSetBitRepSizeError();
+	testAssignmentObject();
+	testAssignmentBitRep();
 	testContains();
 	testValidSize();
 	testInvalidSizeError();
