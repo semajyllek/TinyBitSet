@@ -228,12 +228,6 @@ int TinyBitSet<MaxElems>::pop(bool reverse) {
 }
 
 
-
-
-/*
-	getters
-*/
-
 template <int MaxElems>
 std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() const {
 	std::vector<int> elems;
