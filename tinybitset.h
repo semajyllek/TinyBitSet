@@ -40,9 +40,9 @@ class TinyBitSet {
 		TinyBitSet(TinyBitRepType<MaxElems> const initbitrep);
 
 		// overloaded object operators
-		bool operator==(TinyBitSet<MaxElems> const &obj) const;
-		bool operator!=(TinyBitSet<MaxElems> const &obj) const;
-		TinyBitSet<MaxElems>& operator=(TinyBitSet<MaxElems> const &obj); 
+		bool operator==(TinyBitSet<MaxElems> const &otherset) const;
+		bool operator!=(TinyBitSet<MaxElems> const &otherset) const;
+		TinyBitSet<MaxElems>& operator=(TinyBitSet<MaxElems> const &otherset); 
 
 
 		// element-wise set operations
@@ -51,10 +51,13 @@ class TinyBitSet {
 		bool contains(int i);
 
 		// set-wise set operations to return new TinyBitSet
-		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &obj);
-		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &obj);
-		TinyBitSet<MaxElems> leftDifference(TinyBitSet<MaxElems> const &obj);
-		TinyBitSet<MaxElems> rightDifference(TinyBitSet<MaxElems> const &obj);
+		TinyBitSet<MaxElems> unionb(TinyBitSet<MaxElems> const &otherset);
+		TinyBitSet<MaxElems> intersectionb(TinyBitSet<MaxElems> const &otherset);
+		TinyBitSet<MaxElems> leftDifference(TinyBitSet<MaxElems> const &otherset);
+		TinyBitSet<MaxElems> leftDifference(TinyBitRepType<MaxElems> const otherbitrep);
+		TinyBitSet<MaxElems> rightDifference(TinyBitSet<MaxElems> const &otherset);
+		TinyBitSet<MaxElems> rightDifference(TinyBitRepType<MaxElems> const otherbitrep);
+		
 
 		// set operations to modify this TinyBitSet
 		void fillall();
@@ -102,24 +105,24 @@ TinyBitSet<MaxElems>::TinyBitSet(TinyBitRepType<MaxElems> const initbitrep) {
 
 
 template <int MaxElems> 
-TinyBitSet<MaxElems>& TinyBitSet<MaxElems>::operator=(TinyBitSet<MaxElems> const &obj) {
-	if (obj.getMaxElements() != this->maxElems) {
+TinyBitSet<MaxElems>& TinyBitSet<MaxElems>::operator=(TinyBitSet<MaxElems> const &otherset) {
+	if (otherset.getMaxElements() != this->maxElems) {
 		throw std::invalid_argument("left TinyBitSet maxElems != right TinyBitSet maxElems");
 	}
-	this->maxElems =  obj.getMaxElements();
-	this->tinybitrep = obj.tinybitrep;
+	this->maxElems =  otherset.getMaxElements();
+	this->tinybitrep = otherset.tinybitrep;
 	return *this;
 }
 
 
 template <int MaxElems> 
-bool TinyBitSet<MaxElems>::operator==(TinyBitSet<MaxElems> const &obj) const {
-	return this->tinybitrep == obj.tinybitrep;
+bool TinyBitSet<MaxElems>::operator==(TinyBitSet<MaxElems> const &otherset) const {
+	return this->tinybitrep == otherset.tinybitrep;
 }
 
 template <int MaxElems> 
-bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj) const {
-	return this->tinybitrep != obj.tinybitrep;
+bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &otherset) const {
+	return this->tinybitrep != otherset.tinybitrep;
 }
 
 
@@ -128,33 +131,47 @@ bool TinyBitSet<MaxElems>::operator!=(TinyBitSet<MaxElems> const &obj) const {
 
 
 template <int MaxElems>
-TinyBitSet<MaxElems> TinyBitSet<MaxElems>::unionb(TinyBitSet<MaxElems> const &obj) {
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::unionb(TinyBitSet<MaxElems> const &otherset) {
 	TinyBitSet<MaxElems> t;
-	t.tinybitrep = this->tinybitrep | obj.tinybitrep;
+	t.tinybitrep = this->tinybitrep | otherset.tinybitrep;
 	return t;
 }
 
 template <int MaxElems>
-TinyBitSet<MaxElems> TinyBitSet<MaxElems>::intersectionb(TinyBitSet<MaxElems> const &obj) {
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::intersectionb(TinyBitSet<MaxElems> const &otherset) {
 	TinyBitSet<MaxElems> t;
-	t.tinybitrep = this->tinybitrep & obj.tinybitrep;
+	t.tinybitrep = this->tinybitrep & otherset.tinybitrep;
 	return t;
 }
 
 template <int MaxElems>
-TinyBitSet<MaxElems> TinyBitSet<MaxElems>::leftDifference(TinyBitSet<MaxElems> const &obj) {
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::leftDifference(TinyBitSet<MaxElems> const &otherset) {
 	TinyBitSet<MaxElems> t;
-	t.tinybitrep = this->tinybitrep ^ (this->tinybitrep & obj.tinybitrep);
+	t.tinybitrep = this->tinybitrep ^ (this->tinybitrep & otherset.tinybitrep);
 	return t;
 }
 
 template <int MaxElems>
-TinyBitSet<MaxElems> TinyBitSet<MaxElems>::rightDifference(TinyBitSet<MaxElems> const &obj) {
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::leftDifference(TinyBitRepType<MaxElems> const otherbitrep) {
 	TinyBitSet<MaxElems> t;
-	t.tinybitrep = obj.tinybitrep ^ (this->tinybitrep & obj.tinybitrep);
+	t.tinybitrep = this->tinybitrep ^ (this->tinybitrep & otherbitrep);
 	return t;
 }
 
+
+template <int MaxElems>
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::rightDifference(TinyBitSet<MaxElems> const &otherset) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = otherset.tinybitrep ^ (this->tinybitrep & otherset.tinybitrep);
+	return t;
+}
+
+template <int MaxElems>
+TinyBitSet<MaxElems> TinyBitSet<MaxElems>::rightDifference(TinyBitRepType<MaxElems> const otherbitrep) {
+	TinyBitSet<MaxElems> t;
+	t.tinybitrep = otherbitrep ^ (this->tinybitrep & otherbitrep);
+	return t;
+}
 
 
 template <int MaxElems>
