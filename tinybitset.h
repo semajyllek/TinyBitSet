@@ -177,7 +177,7 @@ TinyBitSet<MaxElems> TinyBitSet<MaxElems>::rightDifference(TinyBitRepType<MaxEle
 template <int MaxElems>
 void TinyBitSet<MaxElems>::insert(int i) {
 	if ((i > this->maxElems) || (i < 1)) {
-		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed.");
+		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed to insert().");
 	}
 	this->tinybitrep |= (1 << (i-1));
 
@@ -186,7 +186,7 @@ void TinyBitSet<MaxElems>::insert(int i) {
 template <int MaxElems>
 void TinyBitSet<MaxElems>::remove(int i) {
 	if ((i > this->maxElems) || (i < 1)) {
-		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed.");
+		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed to remove().");
 	}
 	this->tinybitrep = this->tinybitrep & ~(1 << (i-1));
 }
@@ -194,7 +194,7 @@ void TinyBitSet<MaxElems>::remove(int i) {
 template <int MaxElems>
 bool TinyBitSet<MaxElems>::contains(int i) {
 	if ((i > this->maxElems) || (i < 1)) {
-		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed.");
+		throw std::invalid_argument("TinyBitSet can only contain numbers between 1 and " + std::to_string(this->maxElems) + ", but " + std::to_string(i) + " was passed to contains().");
 	}
 	return (this->tinybitrep & (1 << (i-1))) != 0;
 }
@@ -225,6 +225,11 @@ void TinyBitSet<MaxElems>::invertSet() {
 
 template <int MaxElems>
 int TinyBitSet<MaxElems>::pop(bool reverse) {
+	/*
+	   returns 0 if empty, otherwise first element on right if reverse is false, 
+	   first element on left if reverse is true
+	
+	*/
 	
 	int start, finish;
 	if (reverse) {
