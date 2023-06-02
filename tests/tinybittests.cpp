@@ -342,7 +342,7 @@ void testPopFirst() {
 	int res = t.pop();
 
 	if((res == 5) && (t.getSetSize() == 1)) {
-		std::cout << "passed test: testPopFirst, insert(5), insert(7), pop()" << std::endl;
+		std::cout << "passed test: testPopFirst" << std::endl;
 	} else {
 		std::cout << "failed test: testPopFirst, " << res << t.getSetSize() <<  std::endl;
 	}
@@ -360,7 +360,7 @@ void testPopLast() {
 	int res = t.pop(reverse);
 
 	if((res == 17) && (t.getSetSize() == 2)) {
-		std::cout << "passed test: testPopLast, insert(5), insert(7), insert(17), pop()" << std::endl;
+		std::cout << "passed test: testPopLast" << std::endl;
 	} else {
 		std::cout << "failed test: testPopLast, " << res << t.getSetSize() << std::endl;
 	}

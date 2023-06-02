@@ -234,7 +234,7 @@ int TinyBitSet<MaxElems>::pop(bool reverse) {
 	int start, finish;
 	if (reverse) {
 		start = this->maxElems - 1;
-		finish = 0;
+		finish = -1;
 	} else {
 		start = 0;
 		finish = this->maxElems;
