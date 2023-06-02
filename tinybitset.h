@@ -66,6 +66,7 @@ class TinyBitSet {
 		int popSmallest();
 		int popLargest();
 		int popMedian();
+		int popInt(int i);
 
 		// get methods
 		std::vector<int> getIntegerElements() const;
@@ -287,6 +288,25 @@ int TinyBitSet<MaxElems>::popMedian() {
 	}
 	return 0;  
 }
+
+template <int MaxElems>
+int TinyBitSet<MaxElems>::popInt(int i) {
+	/*
+	   returns 0 if empty, otherwise returns the int (i) passed to it, removes that from set
+	*/
+
+	if (this->tinybitrep == 0) {
+		return 0;
+	}
+
+	if (!contains(i)) {
+		return 0;
+	}
+
+	remove(i);
+	return i;  
+}
+
 
 template <int MaxElems>
 std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() const {

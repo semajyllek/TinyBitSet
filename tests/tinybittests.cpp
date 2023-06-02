@@ -302,7 +302,21 @@ void testPopMedianEven() {
 	return;
 }
 
+void testPopInt() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	t.insert(11);
+	t.insert(17);
+	int res = t.popInt(11);
 
+	if((t.getSetSize() == 3) && (res == 11)) {
+		std::cout << "passed test: testPopInt" << std::endl;
+	} else {
+		std::cout << "failed test: testPopInt, res: " << res << ", size: " << t.getSetSize() << std::endl;
+	}
+	return;
+}
 
 
 void testLeftDiff() {
@@ -429,6 +443,7 @@ int main() {
 	testPopLargest();
 	testPopMedianOdd();
 	testPopMedianEven();
+	testPopInt();
 	testLeftDiff();
 	testRightDiff();
 	testLeftDiffBits();
