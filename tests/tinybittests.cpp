@@ -335,37 +335,38 @@ void testRightDiffBits() {
 
 
 
-void testPopFirst() {
+void testPopSmallest() {
 	TinyBitSet<17> t;
 	t.insert(5);
 	t.insert(7);
-	int res = t.pop();
+	int res = t.popSmallest();
 
 	if((res == 5) && (t.getSetSize() == 1)) {
-		std::cout << "passed test: testPopFirst" << std::endl;
+		std::cout << "passed test: testPopSmallest" << std::endl;
 	} else {
-		std::cout << "failed test: testPopFirst, " << res << t.getSetSize() <<  std::endl;
+		std::cout << "failed test: testPopSmallest, " << res << t.getSetSize() <<  std::endl;
 	}
 	return;
 
 }
 
 
-void testPopLast() {
+void testPopLargest() {
 	TinyBitSet<17> t;
 	t.insert(5);
 	t.insert(7);
 	t.insert(17);
 	bool reverse = true;
-	int res = t.pop(reverse);
+	int res = t.popLargest();
 
 	if((res == 17) && (t.getSetSize() == 2)) {
-		std::cout << "passed test: testPopLast" << std::endl;
+		std::cout << "passed test: testPopLargest" << std::endl;
 	} else {
-		std::cout << "failed test: testPopLast, " << res << t.getSetSize() << std::endl;
+		std::cout << "failed test: testPopLargest, " << res << t.getSetSize() << std::endl;
 	}
 	return;
 }
+
 
 
 
@@ -387,12 +388,14 @@ int main() {
 	testIntersection();
 	testFill();
 	testRemoveAll();
-	testPopFirst();
-	testPopLast();
+	testPopSmallest();
+	testPopLargest();
 	testLeftDiff();
 	testRightDiff();
 	testLeftDiffBits();
 	testRightDiffBits();
+
+	testPopSudoku();
 	return 0;
 }
 

@@ -63,7 +63,8 @@ class TinyBitSet {
 		void fill();
 		void removeall();
 		void invertSet();
-		int pop(bool reverse=false);
+		int popSmallest();
+		int popLargest();
 
 		// get methods
 		std::vector<int> getIntegerElements() const;
@@ -223,24 +224,36 @@ void TinyBitSet<MaxElems>::invertSet() {
 
 
 
+
+
 template <int MaxElems>
-int TinyBitSet<MaxElems>::pop(bool reverse) {
+int TinyBitSet<MaxElems>::popSmallest() {
 	/*
-	   returns 0 if empty, otherwise first element on right if reverse is false, 
-	   first element on left if reverse is true
-	
+	   returns 0 if empty, otherwise first integer element on right in bitstring
+	   aka shares the one bit with 1 << i, O(constant)
+	*/
+	int start = 0;
+	int finish = this->maxElems;
+	for (int i = start; i != finish; i++) {
+		if (this->tinybitrep & (1 << i)) {
+			remove(i+1);
+			return i+1;
+		}
+	}
+	return 0;  
+}
+
+
+template <int MaxElems>
+int TinyBitSet<MaxElems>::popLargest() {
+	/*
+	   returns 0 if empty, otherwise first integer element on left in bitstring
+	   aka shares the one bit with 1 << i, O(constant)
 	*/
 	
-	int start, finish;
-	if (reverse) {
-		start = this->maxElems - 1;
-		finish = -1;
-	} else {
-		start = 0;
-		finish = this->maxElems;
-	} 
-
-	for (int i = start; i != finish; i++) {
+    int start = this->maxElems - 1;
+	int finish = -1;
+	for (int i = start; i != finish; i--) {
 		if (this->tinybitrep & (1 << i)) {
 			remove(i+1);
 			return i+1;
