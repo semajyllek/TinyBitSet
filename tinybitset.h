@@ -65,6 +65,7 @@ class TinyBitSet {
 		void invertSet();
 		int popSmallest();
 		int popLargest();
+		int popMedian();
 
 		// get methods
 		std::vector<int> getIntegerElements() const;
@@ -262,6 +263,30 @@ int TinyBitSet<MaxElems>::popLargest() {
 	return 0;  
 }
 
+
+template <int MaxElems>
+int TinyBitSet<MaxElems>::popMedian() {
+	/*
+	   returns 0 if empty, 
+	   if maxElems is odd, returns the middle element
+	   if maxElems is even, returns the smaller of the two middle elements
+	*/
+
+	int start = 0;
+	int finish = this->maxElems;
+	int count = 0;
+	int median = (getSetSize() / 2) + 1;
+	for (int i = start; i != finish; i++) {
+		if (this->tinybitrep & (1 << i)) {
+			count++;
+		}
+		if (count == median) {
+			remove(i+1);
+			return i+1;
+		}
+	}
+	return 0;  
+}
 
 template <int MaxElems>
 std::vector<int> TinyBitSet<MaxElems>::getIntegerElements() const {

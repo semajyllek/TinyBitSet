@@ -237,6 +237,74 @@ void testIntersection() {
 
 
 
+
+
+void testPopSmallest() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	int res = t.popSmallest();
+
+	if((res == 5) && (t.getSetSize() == 1)) {
+		std::cout << "passed test: testPopSmallest" << std::endl;
+	} else {
+		std::cout << "failed test: testPopSmallest, " << res << t.getSetSize() <<  std::endl;
+	}
+	return;
+
+}
+
+
+void testPopLargest() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	t.insert(17);
+	int res = t.popLargest();
+
+	if((res == 17) && (t.getSetSize() == 2)) {
+		std::cout << "passed test: testPopLargest" << std::endl;
+	} else {
+		std::cout << "failed test: testPopLargest, " << res << t.getSetSize() << std::endl;
+	}
+	return;
+}
+
+void testPopMedianOdd() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	t.insert(17);
+	int res = t.popMedian();
+
+	if((res == 7) && (t.getSetSize() == 2)) {
+		std::cout << "passed test: testPopMedianOdd" << std::endl;
+	} else {
+		std::cout << "failed test: testPopMedianOdd, " << res << t.getSetSize() << std::endl;
+	}
+	return;
+}
+
+
+void testPopMedianEven() {
+	TinyBitSet<17> t;
+	t.insert(5);
+	t.insert(7);
+	t.insert(11);
+	t.insert(17);
+	int res = t.popMedian();
+
+	if((res == 11) && (t.getSetSize() == 3)) {
+		std::cout << "passed test: testPopMedianEven" << std::endl;
+	} else {
+		std::cout << "failed test: testPopMedianEven, " << res << t.getSetSize() << std::endl;
+	}
+	return;
+}
+
+
+
+
 void testLeftDiff() {
 	TinyBitSet<9> t1;
 	t1.insert(5);
@@ -259,6 +327,10 @@ void testLeftDiff() {
 	return;
 
 }
+
+
+
+
 
 void testLeftDiffBits() {
 	TinyBitSet<9> t1;
@@ -335,41 +407,6 @@ void testRightDiffBits() {
 
 
 
-void testPopSmallest() {
-	TinyBitSet<17> t;
-	t.insert(5);
-	t.insert(7);
-	int res = t.popSmallest();
-
-	if((res == 5) && (t.getSetSize() == 1)) {
-		std::cout << "passed test: testPopSmallest" << std::endl;
-	} else {
-		std::cout << "failed test: testPopSmallest, " << res << t.getSetSize() <<  std::endl;
-	}
-	return;
-
-}
-
-
-void testPopLargest() {
-	TinyBitSet<17> t;
-	t.insert(5);
-	t.insert(7);
-	t.insert(17);
-	bool reverse = true;
-	int res = t.popLargest();
-
-	if((res == 17) && (t.getSetSize() == 2)) {
-		std::cout << "passed test: testPopLargest" << std::endl;
-	} else {
-		std::cout << "failed test: testPopLargest, " << res << t.getSetSize() << std::endl;
-	}
-	return;
-}
-
-
-
-
 
 
 int main() {
@@ -390,12 +427,12 @@ int main() {
 	testRemoveAll();
 	testPopSmallest();
 	testPopLargest();
+	testPopMedianOdd();
+	testPopMedianEven();
 	testLeftDiff();
 	testRightDiff();
 	testLeftDiffBits();
 	testRightDiffBits();
-
-	testPopSudoku();
 	return 0;
 }
 
