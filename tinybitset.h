@@ -65,7 +65,6 @@ class TinyBitSet {
 		void invertSet();
 		int popSmallest();
 		int popLargest();
-		int popMedian();
 		int popInt(int i);
 
 		// get methods
