@@ -17,9 +17,9 @@
 #include <iostream>
 #include <chrono>
 #include <unordered_set>
-#include "tinybitset.h"
+#include "../tinybitset.h"
 
-const int MAX_ELEMS = 5;
+const int MAX_ELEMS = 64;
 
 
 float timeInsertionTBS(int N, int* randInts) {
@@ -234,6 +234,38 @@ float timeMaxSTL(int N, int* randInts) {
 }
 
 
+float timeMinTBS(int N, int* randInts) {
+	TinyBitSet<MAX_ELEMS> t;
+	for (int i = 0; i < N; i++) {
+		t.insert(randInts[i]);
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+	t.popSmallest();
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = end - start;
+	return elapsed.count();
+}
+
+
+float timeMinSTL(int N, int*randInts) {
+	std::unordered_set<int> s;
+	for (int i = 0; i < N; i++) {
+		s.insert(randInts[i]);
+	}
+
+	auto start = std::chrono::high_resolution_clock::now();
+	int min = MAX_ELEMS;
+	for (auto it = s.begin(); it != s.end(); it++) {
+		if (*it < min) {
+			min = *it;
+		}
+	}
+	s.erase(min);
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = end - start;
+	return elapsed.count();
+}
 
 
 int main() {
@@ -286,6 +318,13 @@ int main() {
 
 	std::cout << "time for intersection of " << N << " elements in TinyBitSet: " << t1 << std::endl;
 	std::cout << "time for intersection of " << N << " elements in std::set: " << t2 << std::endl;
+
+	// time min
+	t1 = timeMinTBS(N, randInts);
+	t2 = timeMinSTL(N, randInts);
+
+	std::cout << "time for min of " << N << " elements in TinyBitSet: " << t1 << std::endl;
+	std::cout << "time for min of " << N << " elements in std::set: " << t2 << std::endl;
 
 
 	// time max
