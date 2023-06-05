@@ -41,5 +41,5 @@ TinyBitSet<9> tunion = t1.unionb(t2);         // size 3
   library       | insertion  | removal  | membership | union    | intersection | pop min | pop max
   ---           | ---        |  ---     | ---        | ---      | ---          | ---     | ---     
   std\:\:set      | 0.086      | 0.037    | 0.057      | 4.8e-6   | 4.8e-5       | 8e.6    | 5.6e-6    
-  tinybitset    | $${\color{lightblue}0.005}$$      | $${\color{lightblue}0.0003}$$    | $${\color{lightblue}0.003}$$       | $${\color{lightblue}2.5e-7}$$    | $${\color{lightblue}2.5e-6}$$        | $${\color{lightblue}1.8e-6}$$   | $${\color{lightblue}2.9e-7}$$       
+  tinybitset    | $${\color{yellowgreen}0.005}$$      | $${\color{yellowgreen}0.0003}$$    | $${\color{yellowgreen}0.003}$$       | $${\color{yellowgreen}2.5e-7}$$    | $${\color{yellowgreen}2.5e-6}$$        | $${\color{yellowgreen}1.8e-6}$$   | $${\color{yellowgreen}2.9e-7}$$       
   
